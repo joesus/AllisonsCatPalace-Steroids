@@ -1,6 +1,6 @@
-# Steroids AngularJS MPA Example App
+# Steroids AngularJS SPA Example App
 
-This app is meant to showcase the Steroids multi-page app (MPA) architecture with AngularJS. It is meant to be run as a Steroids project.
+This app is meant to showcase the Steroids single-page app (SPA) architecture with AngularJS. It is meant to be run as a Steroids project.
 
 ## Running the app with Steroids
 1. Install Steroids CLI [with these instructions](http://guides.appgyver.com/steroids/guides/steroids_npm/installing/).
