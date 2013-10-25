@@ -1,17 +1,12 @@
 var recipeApp = angular.module('recipeApp.controllers', ['recipeApp.models', 'hmTouchevents']);
 
+recipeApp.controller('IndexCtrl', function ($scope, $location, RecipeRestangular) {
 
-// Index: http://localhost/views/recipe/index.html
-
-recipeApp.controller('IndexCtrl', function ($scope, RecipeRestangular) {
-
-  // Helper function for opening new webviews
   $scope.open = function(id) {
-    webView = new steroids.views.WebView("/views/recipe/show.html?id="+id);
-    steroids.layers.push(webView);
+    $location.path("/show/"+id);
   };
 
-  // Fetch all objects from the local JSON (see app/models/recipe.js)
+  // Fetch all objects from the local JSON
   $scope.recipes = RecipeRestangular.all('recipe').getList();
 
   // -- Native navigation
@@ -19,15 +14,12 @@ recipeApp.controller('IndexCtrl', function ($scope, RecipeRestangular) {
 
 });
 
+recipeApp.controller('ShowCtrl', function ($scope, $filter, $routeParams, RecipeRestangular) {
 
-// Show: http://localhost/views/recipe/show.html?id=<id>
-
-recipeApp.controller('ShowCtrl', function ($scope, $filter, RecipeRestangular) {
-
-  // Fetch all objects from the local JSON (see app/models/recipe.js)
+  // Fetch all objects from the local JSON
   RecipeRestangular.all('recipe').getList().then( function(recipes) {
     // Then select the one based on the view's id query parameter
-    $scope.recipe = $filter('filter')(recipes, {recipe_id: steroids.view.params['id']})[0];
+    $scope.recipe = $filter('filter')(recipes, {recipe_id: $routeParams.id})[0];
   });
 
   // -- Native navigation
