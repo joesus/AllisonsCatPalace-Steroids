@@ -14,15 +14,32 @@ recipeApp.controller('IndexCtrl', function ($scope, $location, RecipeRestangular
 
 });
 
-recipeApp.controller('ShowCtrl', function ($scope, $filter, $routeParams, RecipeRestangular) {
+recipeApp.controller('ShowCtrl', function ($scope, $filter, $routeParams, $location, RecipeRestangular) {
+
+  var recipeId = $routeParams.id;
 
   // Fetch all objects from the local JSON
   RecipeRestangular.all('recipe').getList().then( function(recipes) {
     // Then select the one based on the view's id query parameter
-    $scope.recipe = $filter('filter')(recipes, {recipe_id: $routeParams.id})[0];
+    $scope.recipe = $filter('filter')(recipes, {recipe_id: recipeId})[0];
   });
 
   // -- Native navigation
-  steroids.view.navigationBar.show("Recipe " + steroids.view.params.id );
+  steroids.view.navigationBar.show("Recipe " + recipeId);
 
+  backButton = new steroids.buttons.NavigationBarButton()
+  backButton.title = "Back";
+  backButton.onTap = function() {
+    steroids.view.navigationBar.setButtons({
+      left: []
+    });
+    $scope.$apply(function() {
+      $location.path("/index");
+    });
+  };
+
+  steroids.view.navigationBar.setButtons({
+    left: [backButton],
+    overrideBackButton: true
+  });
 });
