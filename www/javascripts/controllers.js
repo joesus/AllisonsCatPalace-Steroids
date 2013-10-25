@@ -1,4 +1,4 @@
-var recipeApp = angular.module('recipeApp', ['RecipeModel', 'hmTouchevents']);
+var recipeApp = angular.module('recipeApp.controllers', ['recipeApp.models', 'hmTouchevents']);
 
 
 // Index: http://localhost/views/recipe/index.html
